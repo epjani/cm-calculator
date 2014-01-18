@@ -1,0 +1,52 @@
+<div class="navbar">
+	<div class="navbar-inner">
+        <h4>HANN invest d.o.o. Porec - Kalkulator cijena</h4>	
+	</div>
+</div>
+<div class="row-fluid" ng-controller="ItemsCtrl">
+	<div class="span8 block">
+		<div class="navbar navbar-inner block-header">
+        	<div class="muted pull-left"><h5>Kalkulator</h5></div>
+		</div>
+		<table cellpadding="0" cellspacing="0" border="0" class="table table-bordered">
+			<tr><th>Naziv</th><th>Cijena</th><th>Popust</th><th>Kolicina</th><th>Ukupno</th><th class="hide-on-print" ></th>
+			<tr ng-repeat="item in items">
+				<td>{{item.name}}</td>
+				<td style="text-align:center;">{{item.price}}</td> 
+				<td style="text-align:center;" ><input style="width:50px;" type="text" ng-model="item.discount" ng-change="updateItemTotal(item)"  /></td>
+				<td style="text-align:center;"><input style="width:50px;" type="text"  ng-model="item.quantity" ng-change="updateItemTotal(item)"  /></td>
+				<td style="text-align:center;">{{item.total}}</td>
+				<td class="hide-on-print" style="text-align:center;"><a href='' ng-click="deleteItem(item.id, $index)">Obrisi</a></td>
+			</tr>
+			<tr>
+				<td></td><td></td><td></td>
+				<td>Ukupno</td>
+				<td>{{total}}</td>
+				<td class="hide-on-print" ></td>
+			</tr>
+			<tr>
+				<td></td><td></td><td></td>
+				<td>Ukupno sa PDV</td>
+				<td><b>{{(total + total * 0.25)| number: 2}}</b></td>
+				<td class="hide-on-print"><a href="#" onclick="window.print()">Print</a></td>
+			</tr>
+		</table>
+		
+	</div>
+	<div class="span2 block hide-on-print" style="width:214px;">
+		<div class="navbar navbar-inner block-header">
+        	<div class="muted pull-left"><h5>Nova stavka</h5></div>
+		</div>
+		<div class="block-content collapse in">
+			<form ng-submit="createItem()">
+			  <div style="float:left;margin-top:5px;margin-right:5px;">Naziv</div>
+			  <input type="text" ng-model='itemName' style="max-width:155px;" class="pull-right" /><br />
+			  <div style="clear:both;"></div>
+			  <div style="float:left;margin-top:5px;margin-right:5px;">Cijena</div>
+			  <input type="text" ng-model='itemPrice' style="max-width:155px;" class="pull-right" /><br />
+			  <input type="submit" value="Dodaj" class="btn btn-primary pull-right">
+			</form>	
+		</div>
+	</div>
+</div>
+
